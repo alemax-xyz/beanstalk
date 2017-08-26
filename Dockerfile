@@ -38,6 +38,8 @@ FROM clover/base
 WORKDIR /
 COPY --from=build /build/image /
 
+VOLUME ["/var/lib/beanstalkd"]
+
 CMD ["beanstalkd", "-b", "/var/lib/beanstalkd"]
 
 EXPOSE 11300
