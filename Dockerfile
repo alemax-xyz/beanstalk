@@ -1,3 +1,8 @@
+#
+# This is a multi-stage build.
+# Actual build is at the very end.
+#
+
 FROM library/ubuntu:xenial AS build
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -11,12 +16,12 @@ RUN apt-get update && \
 RUN mkdir -p /build/image
 WORKDIR /build
 RUN apt-get download \
-    beanstalkd \
-    netbase \
-    libsystemd0 \
-    libgcrypt20 \
-    liblzma5 \
-    libgpg-error0
+        beanstalkd \
+        netbase \
+        libsystemd0 \
+        libgcrypt20 \
+        liblzma5 \
+        libgpg-error0
 RUN for file in *.deb; do dpkg-deb -x ${file} image/; done
 
 WORKDIR /build/image
