@@ -1,45 +1,60 @@
-#
-# This is a multi-stage build.
-# Actual build is at the very end.
-#
+FROM clover/base AS base
+
+RUN groupadd \
+        --gid 50 \
+        --system \
+        beanstalkd \
+ && useradd \
+        --home-dir /var/lib/beanstalkd \
+        --no-create-home \
+        --system \
+        --shell /bin/false \
+        --uid 50 \
+        --gid 50 \
+        beanstalkd
 
 FROM library/ubuntu:xenial AS build
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV LANG C.UTF-8
-RUN apt-get update && \
-    apt-get install -y \
+ENV LANG=C.UTF-8
+
+RUN export DEBIAN_FRONTEND=noninteractive \
+ && apt-get update \
+ && apt-get install -y \
         python-software-properties \
         software-properties-common \
         apt-utils
 
-RUN mkdir -p /build/image
+RUN mkdir -p /build /rootfs
 WORKDIR /build
 RUN apt-get download \
         beanstalkd \
-        netbase \
         libsystemd0 \
         libgcrypt20 \
         liblzma5 \
         libgpg-error0
-RUN for file in *.deb; do dpkg-deb -x ${file} image/; done
+RUN find *.deb | xargs -I % dpkg-deb -x % /rootfs
 
-WORKDIR /build/image
+WORKDIR /rootfs
 RUN rm -rf \
         etc/default \
         etc/init.d \
-        etc/network \
         lib/systemd \
         usr/share
 
-
-FROM clover/base
+COPY --from=base /etc/group /etc/gshadow /etc/passwd /etc/shadow etc/
+COPY init.sh etc/
 
 WORKDIR /
-COPY --from=build /build/image /
+
+
+FROM clover/common
+
+ENV LANG=C.UTF-8
+
+COPY --from=build /rootfs /
 
 VOLUME ["/var/lib/beanstalkd"]
 
-CMD ["beanstalkd", "-b", "/var/lib/beanstalkd"]
+CMD ["sh", "/etc/init.sh"]
 
 EXPOSE 11300
