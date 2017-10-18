@@ -13,7 +13,7 @@ else
     test $(id -g "$PUSER") -eq $PGID || usermod --gid $PGID "$PUSER" || exit 2
 fi
 
-chown $PUID:$PGID -R /var/lib/beanstalkd || exit 2
+chown $PUID:$PGID /var/lib/beanstalkd || exit 2
 
 beanstalkd \
     -b /var/lib/beanstalkd \
