@@ -23,5 +23,5 @@ beanstalkd \
     $(test -n "$FSYNC_MS" && echo -f $FSYNC_MS) \
     $(test -n "$MAX_JOB_SIZE" && echo -z $MAX_JOB_SIZE) \
     $(test -n "$WAL_FILE_SIZE" && echo -s $WAL_FILE_SIZE) \
-    $(test -n "${DONT_COMPACT_BINLOG+1}" && echo -n) \
+    $(test -n "${DONT_COMPACT_BINLOG+1}" && printf '%s\n' -n) \
     $(test -n "${VERBOSE+1}" && echo -V)
