@@ -29,6 +29,7 @@ RUN apt-get download \
         beanstalkd \
         libsystemd0 \
         libgcrypt20 \
+        liblz4-1 \
         liblzma5 \
         libgpg-error0
 RUN find *.deb | xargs -I % dpkg-deb -x % /rootfs
