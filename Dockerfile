@@ -42,7 +42,7 @@ RUN rm -rf \
         usr/share
 
 COPY --from=base /etc/group /etc/gshadow /etc/passwd /etc/shadow etc/
-COPY init.sh etc/
+COPY init/ etc/init/
 
 WORKDIR /
 
@@ -54,7 +54,5 @@ ENV LANG=C.UTF-8
 COPY --from=build /rootfs /
 
 VOLUME ["/var/lib/beanstalkd"]
-
-CMD ["sh", "/etc/init.sh"]
 
 EXPOSE 11300
