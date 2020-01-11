@@ -1,6 +1,6 @@
 #!/bin/sh
 
-beanstalkd \
+exec beanstalkd \
 	-b /var/lib/beanstalkd \
 	-u "$PUSER" \
 	$(test -n "$FSYNC_MS" && echo -f $FSYNC_MS) \
