@@ -1,10 +1,12 @@
 ## Beanstalk docker image
 
-_Beanstalkd_ is a simple, fast, workqueue service (a specific case of message queueing), in which messages are organized in "_tubes_".
-_Beanstalk_ clients can insert and consume messages into and from such tubes.
-The _beanstalk_ interface is generic, but was originally designed for reducing the latency of page views in high-volume web applications by running time-consuming tasks asynchronously.
+_Beanstalkd_ is a simple, fast, workqueue service (a specific case of message queueing), in which messages are organized
+ in "_tubes_". _Beanstalk_ clients can insert and consume messages into and from such tubes. The _beanstalk_ interface
+ is generic, but was originally designed for reducing the latency of page views in high-volume web applications by
+ running time-consuming tasks asynchronously.
 
-This image is based on official _beanstalkd_ package for Ubuntu Bionic and is built on top of [clover/base](https://hub.docker.com/r/clover/base/).
+This image is based on official [beanstalkd](https://packages.ubuntu.com/focal/beanstalkd) package for Ubuntu and is
+ built on top of [clover/base](https://hub.docker.com/r/clover/base/).
 
 ### Data volumes
 | Location | Description |
