@@ -21,12 +21,23 @@ This image is based on official [beanstalkd](https://packages.ubuntu.com/focal/b
 ### Enviroment variables
 | Name | Default value | Description |
 |---|---|---|
+| `PUID` | `50` | Desired _UID_ of the process owner _*_
+| `PGID` | primary group id of the _UID_ user (`50`) | Desired _GID_ of the process owner _*_
+| `CRON` | _not set_ | Will start _cron_ inside the container if set to `1`
+| `TIMEZONE` | `UTC` | Desired container timezone
 | `FSYNC_MS` | _not set_ | fsync at most once every `FSYNC_MS` milliseconds (will never sync if _not set_; `0` means always fsync) |
 | `MAX_JOB_SIZE` | `65535` | the maximum job size in bytes |
 | `WAL_FILE_SIZE` | `10485760` | the size of each wal file in bytes  (will be rounded up to a multiple of 512 bytes) |
 | `DONT_COMPACT_BINLOG` | _not set_ | do not compact the binlog (will compact the binlog if _not set_) |
 | `VERBOSE` | _not set_ | be more verbose (will be less verbose if _not set_) |
-| `PUID` | `50` | Desired _UID_ of the process owner _*_ |
-| `PGID` | primary group id of the _UID_ user (`50`) | Desired _GID_ of the process owner _*_ |
 
 _*_ `PUID`/`PGID` could be used to preserve data volume ownership on host.
+
+### Supported platforms
+
+ * `linux/amd64`;
+ * `linux/386`;
+ * `linux/arm/v7`;
+ * `linux/arm64/v8`;
+ * `linux/ppc64le`;
+ * `linux/s390x`;

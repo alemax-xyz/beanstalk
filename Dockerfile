@@ -3,7 +3,7 @@ FROM clover/base AS base
 RUN groupadd \
         --gid 50 \
         --system \
-        beanstalkd \
+        beanstalk \
  && useradd \
         --home-dir /var/lib/beanstalkd \
         --no-create-home \
@@ -11,27 +11,21 @@ RUN groupadd \
         --shell /bin/false \
         --uid 50 \
         --gid 50 \
-        beanstalkd
+        beanstalk
 
-FROM library/ubuntu:focal AS build
+FROM library/debian:stable-slim AS build
 
 ENV LANG=C.UTF-8
 
 RUN export DEBIAN_FRONTEND=noninteractive \
  && apt-get update \
  && apt-get install -y \
-        software-properties-common \
         apt-utils
 
 RUN mkdir -p /build /rootfs
 WORKDIR /build
 RUN apt-get download \
-        beanstalkd \
-        libsystemd0 \
-        libgcrypt20 \
-        liblz4-1 \
-        liblzma5 \
-        libgpg-error0
+        beanstalkd
 RUN find *.deb | xargs -I % dpkg-deb -x % /rootfs
 
 WORKDIR /rootfs
@@ -42,7 +36,7 @@ RUN rm -rf \
         usr/share
 
 COPY --from=base /etc/group /etc/gshadow /etc/passwd /etc/shadow etc/
-COPY init/ etc/init/
+COPY etc/ etc/
 
 WORKDIR /
 
@@ -50,6 +44,7 @@ WORKDIR /
 FROM clover/common
 
 ENV LANG=C.UTF-8
+ENV CHOWN=/var/lib/beanstalkd
 
 COPY --from=build /rootfs /
 
