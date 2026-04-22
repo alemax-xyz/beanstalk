@@ -5,8 +5,7 @@ _Beanstalkd_ is a simple, fast, workqueue service (a specific case of message qu
  is generic, but was originally designed for reducing the latency of page views in high-volume web applications by
  running time-consuming tasks asynchronously.
 
-This image is based on official [beanstalkd](https://packages.ubuntu.com/focal/beanstalkd) package for Ubuntu and is
- built on top of [clover/base](https://hub.docker.com/r/clover/base/).
+This image is based on official `beanstalkd` package for debian and is built on top of [clover/common](https://hub.docker.com/r/clover/common/).
 
 ### Data volumes
 | Location | Description |
