@@ -41,13 +41,11 @@ WORKDIR /
 
 FROM clover/common
 
-ENV LANG=C.UTF-8
-
-#ENV CHOWN=/var/lib/beanstalkd
+ENV LANG=C.UTF-8 \
+	BEANSTALK_WAL_DIR=/var/lib/beanstalkd \
+	BEANSTALK_LISTEN_ADDR=0.0.0.0 \
+	BEANSTALK_LISTEN_PORT=11300
 
 COPY --from=build /rootfs /
 
-
-VOLUME ["/var/lib/beanstalkd"]
-
-EXPOSE 11300
+EXPOSE ${BEANSTALK_LISTEN_PORT:-11300}
