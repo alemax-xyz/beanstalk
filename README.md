@@ -23,8 +23,8 @@ This image is based on official `beanstalkd` package for debian and is built on 
 | `BEANSTALK_MAX_JOB_SIZE` | `65535` | the maximum job size in bytes
 | `BEANSTALK_WAL_FILE_SIZE` | `10485760` | the size of each wal file in bytes  (will be rounded up to a multiple of 512 bytes)
 | `BEANSTALK_VERBOSE` | _not set_ | be more verbose (will be less verbose if _not set_)
-| `PUID` | `50` | desired _UID_ of the process owner _*_
-| `PGID` | primary group id of the _UID_ user (`50`) | Desired _GID_ of the process owner _*_
+| `PUID` | `50` | desired user id of the process owner _*_
+| `PGID` | `50` | desired group id of the process pwner (primary group of the `PUID` user)
 | `PUSER` | `beanstalk` | desired `PUID` user name
 | `PGROUP` | `beanstalk` | desired `PGID` group name
 | `CRON` | _not set_ | Will start _cron_ inside the container if set to `1`
