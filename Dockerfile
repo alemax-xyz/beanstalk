@@ -42,9 +42,11 @@ WORKDIR /
 FROM clover/common
 
 ENV LANG=C.UTF-8
-ENV CHOWN=/var/lib/beanstalkd
+
+#ENV CHOWN=/var/lib/beanstalkd
 
 COPY --from=build /rootfs /
+
 
 VOLUME ["/var/lib/beanstalkd"]
 
